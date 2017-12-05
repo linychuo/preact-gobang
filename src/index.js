@@ -3,11 +3,20 @@ import { Component } from 'preact';
 import { Router } from 'preact-router';
 import { WelcomeScreen, SecondScreen } from './wizard';
 import GameScreen from './board';
+import * as Constants from './constants';
 
 export default class App extends Component {
 	setSymbolOfPlayer = (symbol) => {
-		this.props.player1 = symbol;
-		this.props.player2 = symbol === 'X' ? 'O' : 'X';
+		this.props.players = {};
+		if (this.props.mode === Constants.MODE_MVC) {
+			this.props.players[Constants.PLAYER1] = symbol;
+			this.props.players[Constants.COMPUTER] = symbol === Constants.X ? Constants.O : Constants.X;
+		}
+
+		if (this.props.mode === Constants.MODE_MVM) {
+			this.props.players[Constants.PLAYER1] = symbol;
+			this.props.players[Constants.PLAYER2] = symbol === Constants.X ? Constants.O : Constants.X;
+		}
 	}
 
 	setGameMode = mode => {

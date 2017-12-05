@@ -457,6 +457,17 @@ preact_router_es_Router.Link = preact_router_es_Link;
 
 /* harmony default export */ var preact_router_es = (preact_router_es_Router);
 //# sourceMappingURL=preact-router.es.js.map
+// CONCATENATED MODULE: ./constants.js
+var GRID_SIZE = 15,
+    PLAYER1 = 'Player1',
+    PLAYER2 = 'Player2',
+    COMPUTER = 'Computer',
+    MODE_MVC = 'man-vs-computer',
+    MODE_MVM = 'man-vs-man',
+    X = 'X',
+    O = 'O';
+
+
 // CONCATENATED MODULE: ./wizard.js
 
 
@@ -465,6 +476,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -487,7 +499,7 @@ var wizard_WelcomeScreen = function (_Component) {
 		}
 
 		return _ret = (_temp = (_this = _possibleConstructorReturn(this, _Component.call.apply(_Component, [this].concat(args))), _this), _this.onSelectMode = function (e) {
-			var mode = e.target.text === 'Man VS Computer' ? 'mvc' : 'mvm';
+			var mode = e.target.text === 'Man VS Computer' ? MODE_MVC : MODE_MVM;
 			_this.props.setGameMode(mode);
 		}, _temp), _possibleConstructorReturn(_this, _ret);
 	}
@@ -534,7 +546,7 @@ var wizard_SecondScreen = function (_Component2) {
 	SecondScreen.prototype.render = function render(_ref2) {
 		var settings = _ref2.settings;
 
-		var showTips = settings.mode === 'mvm' ? 'Player 1,' : '';
+		var showTips = settings.mode === MODE_MVM ? PLAYER1 + ',' : '';
 		return Object(preact_min["h"])(
 			'div',
 			{ id: 'view2' },
@@ -547,13 +559,13 @@ var wizard_SecondScreen = function (_Component2) {
 			Object(preact_min["h"])(
 				'a',
 				{ href: '/game', 'class': 'btn', onClick: this.onSelectSymbol },
-				'X'
+				X
 			),
 			'\xA0\xA0',
 			Object(preact_min["h"])(
 				'a',
 				{ href: '/game', 'class': 'btn', onClick: this.onSelectSymbol },
-				'O'
+				O
 			)
 		);
 	};
@@ -576,8 +588,6 @@ function board__inherits(subClass, superClass) { if (typeof superClass !== "func
 
 
 
-var GRID_SIZE = 15;
-
 function initBoard(size) {
 	var board = [];
 	for (var i = 0; i < size; i++) {
@@ -595,7 +605,7 @@ function checkBoard(board, point) {
 	    i = point.i,
 	    j = point.j;
 	for (j++; j < GRID_SIZE; j++) {
-		if (board[i][j] === board[point.i][point.j]) {
+		if (board[i][j] && board[i][j] === board[point.i][point.j]) {
 			count++;
 		} else {
 			break;
@@ -604,7 +614,7 @@ function checkBoard(board, point) {
 
 	j = point.j;
 	for (j--; j >= 0; j--) {
-		if (board[i][j] === board[point.i][point.j]) {
+		if (board[i][j] && board[i][j] === board[point.i][point.j]) {
 			count++;
 		} else {
 			break;
@@ -618,7 +628,7 @@ function checkBoard(board, point) {
 	i = point.i;
 	j = point.j;
 	for (i++; i < GRID_SIZE; i++) {
-		if (board[i][j] === board[point.i][point.j]) {
+		if (board[i][j] && board[i][j] === board[point.i][point.j]) {
 			count++;
 		} else {
 			break;
@@ -626,7 +636,7 @@ function checkBoard(board, point) {
 	}
 	i = point.i;
 	for (i--; i >= 0; i--) {
-		if (board[i][j] === board[point.i][point.j]) {
+		if (board[i][j] && board[i][j] === board[point.i][point.j]) {
 			count++;
 		} else {
 			break;
@@ -640,7 +650,7 @@ function checkBoard(board, point) {
 	i = point.i + 1;
 	j = point.j + 1;
 	for (; i < GRID_SIZE && j < GRID_SIZE; i++, j++) {
-		if (board[i][j] === board[point.i][point.j]) {
+		if (board[i][j] && board[i][j] === board[point.i][point.j]) {
 			count++;
 		} else {
 			break;
@@ -649,7 +659,7 @@ function checkBoard(board, point) {
 	i = point.i - 1;
 	j = point.j - 1;
 	for (; i >= 0 && j >= 0; i--, j--) {
-		if (board[i][j] === board[point.i][point.j]) {
+		if (board[i][j] && board[i][j] === board[point.i][point.j]) {
 			count++;
 		} else {
 			break;
@@ -663,7 +673,7 @@ function checkBoard(board, point) {
 	i = point.i + 1;
 	j = point.j - 1;
 	for (; i < GRID_SIZE && j >= 0; i++, j--) {
-		if (board[i][j] === board[point.i][point.j]) {
+		if (board[i][j] && board[i][j] === board[point.i][point.j]) {
 			count++;
 		} else {
 			break;
@@ -672,7 +682,7 @@ function checkBoard(board, point) {
 	i = point.i - 1;
 	j = point.j + 1;
 	for (; i >= 0 && j < GRID_SIZE; i--, j++) {
-		if (board[i][j] === board[point.i][point.j]) {
+		if (board[i][j] && board[i][j] === board[point.i][point.j]) {
 			count++;
 		} else {
 			break;
@@ -680,6 +690,23 @@ function checkBoard(board, point) {
 	}
 
 	return count >= 5;
+}
+
+function getRandomIntInclusive(min, max) {
+	min = Math.ceil(min);
+	max = Math.floor(max);
+	return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive
+}
+
+function randomPosition(board) {
+	var x = void 0,
+	    y = void 0,
+	    v = void 0;
+	do {
+		x = getRandomIntInclusive(0, GRID_SIZE - 1), y = getRandomIntInclusive(0, GRID_SIZE - 1);
+		v = board[x][y];
+	} while (v);
+	return [x, y];
 }
 
 var board_Chess = function (_Component) {
@@ -695,35 +722,21 @@ var board_Chess = function (_Component) {
 		}
 
 		return _ret = (_temp = (_this = board__possibleConstructorReturn(this, _Component.call.apply(_Component, [this].concat(args))), _this), _this.onHandleClick = function (e) {
-			if (e.target.innerHTML === '&nbsp;') {
-				var isPlayer1 = _this.props.currentPlayer === 'Player1';
-				if (_this.props.settings.mode === 'mvm') {
-					var symbol = isPlayer1 ? _this.props.settings.player1 : _this.props.settings.player2;
+			if (_this.props.currentPlayer === PLAYER1 || _this.props.currentPlayer === PLAYER2) {
+				if (e.target.innerHTML === '&nbsp;') {
+					var symbol = _this.props.settings.players[_this.props.currentPlayer];
 					_this.props.board[_this.props.rowIndex][_this.props.cellIndex] = symbol;
-					_this.setState({
-						content: symbol
-					});
-					_this.props.switchPlayer(isPlayer1 ? 'Player2' : 'Player1', _this.props.rowIndex, _this.props.cellIndex);
+					_this.props.switchPlayer(_this.props.rowIndex, _this.props.cellIndex);
 				}
-
-				// else {
-				// if (isPlayer1) {
-				//     let symbol = this.props.settings.player1;
-				//     this.props.board[this.props.rowIndex][this.props.cellIndex] = symbol;
-				//     this.setState({
-				//         content: symbol
-				//     });
-				// }
-				// this.props.switchPlayer(isPlayer1 ? 'Computer' : 'Player1');
-				// }
 			}
+			return false;
 		}, _temp), board__possibleConstructorReturn(_this, _ret);
 	}
 
 	Chess.prototype.render = function render(_ref, _ref2) {
-		var content = _ref2.content;
+		var content = _ref.content;
 
-		_objectDestructuringEmpty(_ref);
+		_objectDestructuringEmpty(_ref2);
 
 		var cellStyle = { width: 20, height: 20 };
 		return Object(preact_min["h"])(
@@ -744,23 +757,48 @@ var board_GameScreen = function (_Component2) {
 
 		var _this2 = board__possibleConstructorReturn(this, _Component2.call(this));
 
-		_this2.switchPlayer = function (_next, rowIdx, colIdx) {
+		_this2.switchPlayer = function (rowIdx, colIdx) {
+			var settings = _this2.props.settings;
 			//检查棋盘
-			var result = checkBoard(_this2.board, { i: rowIdx, j: colIdx });
+			var result = checkBoard(_this2.state.board, { i: rowIdx, j: colIdx });
 			if (result) {
-				//如果发现有一方赢，跳转到首页
-				alert(_this2.state.nextPlayer + ' ' + _this2.board[rowIdx][colIdx] + ' win!');
-				route('/', true);
+				//如果发现有一方赢，清空棋盘数据
+				alert(_this2.state.nextPlayer + ' ' + _this2.state.board[rowIdx][colIdx] + ' win!');
+				_this2.setState({
+					board: initBoard(GRID_SIZE),
+					nextPlayer: PLAYER1
+				});
 			} else {
-				_this2.setState({ nextPlayer: _next });
-				if (_next === 'Computer') {
-					//利用AI来下棋
+				var mode = settings.mode;
+				var _next = '';
+				if (mode === MODE_MVM) {
+					if (_this2.state.nextPlayer === PLAYER1) {
+						_next = PLAYER2;
+					} else {
+						_next = PLAYER1;
+					}
+				} else if (mode === MODE_MVC) {
+					if (_this2.state.nextPlayer === PLAYER1) {
+						_next = COMPUTER;
+						//模拟AI来下棋
+						setTimeout(function () {
+							var _randomPosition = randomPosition(_this2.state.board),
+							    x = _randomPosition[0],
+							    y = _randomPosition[1];
+
+							_this2.state.board[x][y] = settings.players[_next];
+							_this2.switchPlayer(x, y);
+						}, 2000);
+					} else {
+						_next = PLAYER1;
+					}
 				}
+				_this2.setState({ nextPlayer: _next });
 			}
 		};
 
-		_this2.board = initBoard(GRID_SIZE);
-		_this2.state.nextPlayer = 'Player1';
+		_this2.state.board = initBoard(GRID_SIZE);
+		_this2.state.nextPlayer = PLAYER1;
 		return _this2;
 	}
 
@@ -768,9 +806,9 @@ var board_GameScreen = function (_Component2) {
 		var _this3 = this;
 
 		var settings = _ref3.settings;
-		var nextPlayer = _ref4.nextPlayer;
+		var nextPlayer = _ref4.nextPlayer,
+		    board = _ref4.board;
 
-		var _board = this.board;
 		return Object(preact_min["h"])(
 			'div',
 			{ id: 'gameView' },
@@ -784,13 +822,13 @@ var board_GameScreen = function (_Component2) {
 			Object(preact_min["h"])(
 				'div',
 				{ id: 'board' },
-				_board.map(function (row, i) {
+				board.map(function (row, i) {
 					return Object(preact_min["h"])(
 						'div',
 						null,
 						row.map(function (cell, j) {
-							return Object(preact_min["h"])(board_Chess, { settings: settings, board: _board, switchPlayer: _this3.switchPlayer, currentPlayer: nextPlayer,
-								rowIndex: i, cellIndex: j
+							return Object(preact_min["h"])(board_Chess, { settings: settings, board: board, switchPlayer: _this3.switchPlayer,
+								rowIndex: i, cellIndex: j, content: cell, currentPlayer: nextPlayer
 							});
 						})
 					);
@@ -819,6 +857,7 @@ function index__inherits(subClass, superClass) { if (typeof superClass !== "func
 
 
 
+
 var index_App = function (_Component) {
 	index__inherits(App, _Component);
 
@@ -832,8 +871,16 @@ var index_App = function (_Component) {
 		}
 
 		return _ret = (_temp = (_this = index__possibleConstructorReturn(this, _Component.call.apply(_Component, [this].concat(args))), _this), _this.setSymbolOfPlayer = function (symbol) {
-			_this.props.player1 = symbol;
-			_this.props.player2 = symbol === 'X' ? 'O' : 'X';
+			_this.props.players = {};
+			if (_this.props.mode === MODE_MVC) {
+				_this.props.players[PLAYER1] = symbol;
+				_this.props.players[COMPUTER] = symbol === X ? O : X;
+			}
+
+			if (_this.props.mode === MODE_MVM) {
+				_this.props.players[PLAYER1] = symbol;
+				_this.props.players[PLAYER2] = symbol === X ? O : X;
+			}
 		}, _this.setGameMode = function (mode) {
 			_this.props.mode = mode;
 		}, _temp), index__possibleConstructorReturn(_this, _ret);

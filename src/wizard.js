@@ -1,8 +1,9 @@
 import { Component } from 'preact';
+import * as Constants from './constants';
 
 class WelcomeScreen extends Component {
 	onSelectMode = e => {
-		let mode = e.target.text === 'Man VS Computer' ? 'mvc' : 'mvm';
+		let mode = e.target.text === 'Man VS Computer' ? Constants.MODE_MVC : Constants.MODE_MVM;
 		this.props.setGameMode(mode);
 	}
 
@@ -24,13 +25,13 @@ class SecondScreen extends Component {
 	}
 
 	render({ settings }) {
-		let showTips = settings.mode === 'mvm' ? 'Player 1,' : '';
+		let showTips = settings.mode === Constants.MODE_MVM ? `${Constants.PLAYER1},` : '';
 		return (
 			<div id="view2">
 				<h3>{showTips} Which symbols would you like to use?</h3>
-				<a href="/game" class="btn" onClick={this.onSelectSymbol}>X</a>
+				<a href="/game" class="btn" onClick={this.onSelectSymbol}>{Constants.X}</a>
 				&nbsp;&nbsp;
-				<a href="/game" class="btn" onClick={this.onSelectSymbol}>O</a>
+				<a href="/game" class="btn" onClick={this.onSelectSymbol}>{Constants.O}</a>
 			</div>
 		);
 	}
